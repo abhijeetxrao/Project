@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const connection = async(requestAnimationFrame,res)=>{
+const connection = async()=>{
   try {
    await mongoose.connect(process.env.DATABASE_URL)
    console.log("MongoDB connected!")
