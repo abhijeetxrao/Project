@@ -1,20 +1,24 @@
-import { asyncHandler } from "../utils/async.handler";
+import { asyncHandler } from "../utils/async.handler.js";
 import { User } from "../models/user.models.js";
 
 const registerUser = asyncHandler(async(req,res)=>{
   const {email, username, password, role} = req.body;
 
-  const user = User.findOne(email);
-  if(user){
-    res.status(400).message("User already exists!");
+  const existingUser = await User.findOne({email});
+  if(existingUser){
+    return res.status(400).json({message:"User already exists!"})
   }
   
-  User.create({
+  const user = await User.create({
     email,
     username,
     password,
     role,
   })
+  console.log(user);
+
+  return res.status(200).json({message:"User registered"}, user);
+
 
 })
 
@@ -46,4 +50,4 @@ const getCurrUser = asyncHandler(async(req,res)=>{
   const {email, username, password, role} = req.body;
 })
 
-export {registerUser}
+export {registerUser, logOutUser, verifyEmail, resendVerficationEmail, refreshAccessToken,forgotPassword, changeCurrentPassword, getCurrUser}

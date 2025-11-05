@@ -13,7 +13,7 @@ const userRegistrationValidation = ()=>{
       .isLength({max:13}).withMessage('Username should be less than 13 characters!'),
     body("password")
       .trim()
-      .isEmpty().withMessage('Password is Required!')
+      .notEmpty().withMessage('Password is Required!')
       .isLength({min:8}).withMessage("Password length should be more than or equal to 8!")
       .matches(/[A-Z]/).withMessage("Password should contain uppercase Alphabet")
       .matches(/[a-z]/).withMessage("Password should contain lowercase Alphabet")
@@ -21,17 +21,18 @@ const userRegistrationValidation = ()=>{
       .matches(/[@#$%^&*!]/).withMessage("Password should a symbol!"),
     
     body('role')
-      .isEmpty().withMessage("Role is Required!")
+      .notEmpty().withMessage("Role is Required!")
   ]
 }
 
-const userLoginValidation = ()=>{[
+const userLoginValidation = ()=>{
+  return[
   body('email')
-    .isEmpty().withMessage("Email is Required!")
+    .notEmpty().withMessage("Email is Required!")
     .isEmail().withMessage("Email is Invalid!"),
   
     body('password')
-      .isEmpty().withMessage('Password is Required!')]
+      .notEmpty().withMessage('Password is Required!')]
 }
 
 export{userRegistrationValidation, userLoginValidation}
