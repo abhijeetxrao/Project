@@ -1,7 +1,9 @@
-import ApiResponse from "../utils/api-response.js"
+import { asyncHandler } from "../utils/async.handler";
+import { userRegistrationValidation } from "../validators/index.js";
 
-const healthCheck = async (req,res)=>{
-  await res.status(200).json(new ApiResponse(200,{message:"Server is running!"}));
-}
+const registerUser = asyncHandler(async(req,res)=>{
+  const {email, username, password, role} = req.body;
 
-export {healthCheck}
+  //Validation
+  userRegistrationValidation(body);
+})
